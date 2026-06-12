@@ -1,4 +1,4 @@
-name: Auto 50 Commits
+name: Auto 50 Files Commits
 
 on:
   workflow_dispatch:
@@ -12,13 +12,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Create 50 Commits
+      - name: Create 50 Files and Commits
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           for i in {1..50}; do
-            echo "Auto commit $i" >> auto_commits.txt
-            git add auto_commits.txt
-            git commit -m "Automated commit $i"
+            # สร้างไฟล์ใหม่ชื่อ test_1.txt ถึง test_50.txt
+            echo "This is file number $i" > test_$i.txt
+            git add test_$i.txt
+            git commit -m "Add file test_$i.txt"
           done
           git push origin HEAD
